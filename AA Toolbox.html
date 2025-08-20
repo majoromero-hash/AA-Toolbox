@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Analytics Toolbox</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= Roche Brand Tokens ================= */
+    :root{
+      --roche-blue:#0b41cd;
+      --roche-blue-dark:#022366;
+      --roche-blue-xlight:#bde3ff;
+
+      --neutral-4:#fff7f5;
+      --grey-1:#544f4f;
+      --grey-2:#706b69;
+      --grey-3:#c2bab5;
+      --grey-5:#f5f5f2;
+
+      --bg: var(--grey-5);
+      --card:#fff;
+      --ink: var(--grey-1);
+      --ink-muted: var(--grey-2);
+      --line: rgba(0,0,0,.08);
+      --radius-xl: 18px;
+      --radius-lg: 14px;
+      --shadow: 0 10px 24px rgba(0,0,0,.06);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      line-height:1.55;
+      background:linear-gradient(0deg, var(--neutral-4), var(--grey-5));
+    }
+    .wrap{max-width:1200px; margin:28px auto 64px; padding:0 20px;}
+
+    /* Header */
+    header.hero{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-left:6px solid var(--roche-blue); /* keyline accent */
+      border-radius:var(--radius-xl);
+      padding:28px 24px;
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 8px; font-size:clamp(28px,2.5vw + 10px,40px); color:var(--roche-blue-dark)}
+    .hero p{margin:0; color:var(--ink-muted); max-width:70ch}
+    .hero a{color:var(--roche-blue-dark); text-decoration:underline}
+    .print-btn{
+      display:inline-block; margin-top:16px;
+      background:var(--card); border:1px solid var(--grey-3);
+      padding:10px 16px; border-radius:var(--radius-lg);
+      font-weight:600; cursor:pointer; color:var(--roche-blue-dark);
+    }
+    .print-btn:hover{background:var(--roche-blue-xlight)}
+
+    /* Sections */
+    .section{
+      background:var(--card); border:1px solid var(--line);
+      border-radius:var(--radius-xl); box-shadow:var(--shadow);
+      margin-top:22px; overflow:hidden; page-break-before:always;
+    }
+    .section:first-of-type{page-break-before:auto;}
+    .section-header{
+      padding:18px 22px; display:flex; justify-content:space-between; align-items:baseline; position:relative; border-bottom:1px solid var(--line);
+    }
+    .section-header::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--roche-blue)}
+    .section-title{margin:0; font-size:1.2rem; font-weight:700; color:var(--roche-blue-dark)}
+    .section-meta{font-size:.9rem; color:var(--ink-muted); font-weight:600}
+
+    /* Table shell */
+    .table-wrap{padding:12px 18px 22px}
+    .table-scroll{border:1px solid var(--line); border-radius:14px; overflow:auto; background:#fff}
+    table{width:100%; border-collapse:separate; border-spacing:0; min-width:860px}
+    th,td{padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); font-size:.95rem}
+    thead th{
+      position:sticky; top:0; background:linear-gradient(180deg,#fff,var(--roche-blue-xlight));
+      color:var(--roche-blue-dark); text-transform:uppercase; font-size:.78rem; font-weight:800;
+    }
+    tbody tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+    tbody tr:hover td{background:rgba(11,65,205,.06)}
+
+    /* Topic column + embedded PNGs (small, fits margin) */
+    .topic{
+      width:180px; text-align:center; font-weight:700;
+    }
+    .topic h3{margin:8px 0 0; font-size:1rem}
+    .topic-img{
+      display:block;
+      width:120px;         /* small size to fit left margin */
+      max-width:100%;
+      height:auto;
+      margin:0 auto 6px;   /* center in the topic column */
+      object-fit:contain;
+      image-rendering:auto;
+      border:1px solid var(--grey-3);
+      border-radius:8px;
+      background:#fff;
+    }
+
+    /* Footer */
+    footer{margin-top:28px; color:var(--ink-muted); font-size:.92rem; display:flex; gap:10px; justify-content:flex-end}
+
+    /* Print styles */
+    @media print{
+      body{background:#fff; color:#000}
+      .wrap{margin:0; max-width:none; padding:0}
+      header.hero, .section{border-radius:0; box-shadow:none; border:0}
+      .section-header::before{background:#000}
+      .print-btn, footer{display:none !important}
+      table{min-width:0; width:100%; border-collapse:collapse}
+      th,td{border:1px solid #000; padding:8px 10px; background:#fff !important; color:#000}
+      thead th{position:static; background:#fff !important; color:#000}
+      .topic-img{border-color:#000}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Advanced Analytics Toolbox</h1>
+      <p>This is an overview of tools and method used by the advanced analytics team.
+         For more information or to initiate a project please reach out to
+         <a href="mailto:codman@roche.com">codman@roche.com</a> or any member of the team.</p>
+      <button class="print-btn" onclick="window.print()">🖨 Print version</button>
+    </header>
+
+    <!-- ================= METHODS (text table with small PNGs in left column) ================= -->
+    <section class="section" aria-labelledby="methods-title">
+      <div class="section-header">
+        <h2 id="methods-title" class="section-title">A&amp;I Advanced Analytics: Methods</h2>
+        <div class="section-meta">Source: A&amp;I Advanced Analytics: Methods</div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll" role="region" aria-label="Methods table" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Topic</th>
+                <th scope="col">Analysis Type</th>
+                <th scope="col">Business Questions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- Customer engagement -->
+              <tr>
+                <td class="topic" rowspan="4">
+                  <img class="topic-img" referrerpolicy="no-referrer"
+                       src="https://drive.google.com/thumbnail?id=1wN6ECC7yn4rwrlkxB2T6OwShG0_yf4Fl&sz=w600"
+                       alt="Customer Engagement panel">
+                  <h3>Customer engagement</h3>
+                </td>
+                <td>Affinity prediction</td>
+                <td>How can we predict the best content and channel for customers, including those with limited data?</td>
+              </tr>
+              <tr>
+                <td>Journey design</td>
+                <td>How can we sequence tactics to optimize campaign effectiveness and improve customer experience?</td>
+              </tr>
+              <tr>
+                <td>Next best action</td>
+                <td>What is the recommended next best message and from what channel?</td>
+              </tr>
+              <tr>
+                <td>Customer segmentation</td>
+                <td>How can we understand groups of customers with similar key drivers and motivations?</td>
+              </tr>
+
+              <!-- Patient treatment -->
+              <tr>
+                <td class="topic" rowspan="4">
+                  <img class="topic-img" referrerpolicy="no-referrer"
+                       src="https://drive.google.com/thumbnail?id=1E6s8BzaUuIxkWHPlIfXQcncdNZq3glXw&sz=w600"
+                       alt="Patient Treatment panel">
+                  <h3>Patient treatment</h3>
+                </td>
+                <td>Patient journey</td>
+                <td>How can we predict propensity to switch or discontinue early? Where are there gaps in diagnosis? What are key issues/themes during different stages of the patient journey?</td>
+              </tr>
+              <tr>
+                <td>Patient segmentation</td>
+                <td>Which groups of patients have similar characteristics based on individual attributes and/or patient journeys?</td>
+              </tr>
+              <tr>
+                <td>Location &amp; travel</td>
+                <td>Where are different patient segments located? How can we understand travel burden? Where should campaigns be targeted and tailored to the local population?</td>
+              </tr>
+              <tr>
+                <td>Access</td>
+                <td>Where are there disparities in treatment access and outcomes?</td>
+              </tr>
+
+              <!-- Resource optimization -->
+              <tr>
+                <td class="topic" rowspan="4">
+                  <img class="topic-img" referrerpolicy="no-referrer"
+                       src="https://drive.google.com/thumbnail?id=1LwpgpOik_qrD88bXofwY2_Gq3-TMhxeW&sz=w600"
+                       alt="Resource Optimization panel">
+                  <h3>Resource optimization</h3>
+                </td>
+                <td>Field team sizing and deployment</td>
+                <td>What resources are required and how can the territory alignments be optimized?</td>
+              </tr>
+              <tr>
+                <td>Customer &amp; account prioritization</td>
+                <td>Who are the most important customers to focus on based on potential? What is the optimal channel from an efficiency and customer engagement standpoint? What resources are required for different account segments?</td>
+              </tr>
+              <tr>
+                <td>Forecasting &amp; variance detection</td>
+                <td>Where do we need to focus attention based not only on historical trending but also on future outlook?</td>
+              </tr>
+              <tr>
+                <td>Impact analysis</td>
+                <td>What is the success and quantified impact of various tactics? What are the KPIs and key drivers?</td>
+              </tr>
+
+              <!-- Healthcare ecosystem -->
+              <tr>
+                <td class="topic" rowspan="5">
+                  <img class="topic-img" referrerpolicy="no-referrer"
+                       src="https://drive.google.com/thumbnail?id=1JJYMwUld-EJG5aCXQAwjA-hO0aK93zba&sz=w600"
+                       alt="Healthcare Ecosystem panel">
+                  <h3>Healthcare ecosystem</h3>
+                </td>
+                <td>Location &amp; catchment areas</td>
+                <td>Where are treatment centres located and what are the catchment areas for clinical trials as well as commercial engagement?</td>
+              </tr>
+              <tr>
+                <td>System KPIs</td>
+                <td>Where are there health care inefficiencies?</td>
+              </tr>
+              <tr>
+                <td>Network analytics</td>
+                <td>How are stakeholders connected? Who are most influential? What are common interests and objectives? Where are there leverage points?</td>
+              </tr>
+              <tr>
+                <td>Stakeholder identification</td>
+                <td>How can we mine and map key stakeholders (HCPs, government, etc.)?</td>
+              </tr>
+              <tr>
+                <td>Insights</td>
+                <td>How can I quickly distill insights from large or fragmented text from many different sources? What are common terms mentioned? How can collections of text be clustered to understand common topics/themes?</td>
+              </tr>
+
+              <!-- Advanced reporting -->
+              <tr>
+                <td class="topic" rowspan="5">
+                  <img class="topic-img" referrerpolicy="no-referrer"
+                       src="https://drive.google.com/thumbnail?id=1hD5lLtew4rfRzxBGRHIKp1EqpNqXpz9c&sz=w600"
+                       alt="Advanced Reporting panel">
+                  <h3>Advanced reporting</h3>
+                </td>
+                <td>Trigger alerts</td>
+                <td>How can I be alerted about a new customer? How can I find out if we fall below specified KPIs?</td>
+              </tr>
+              <tr>
+                <td>Information access / extraction</td>
+                <td>How can I set up ad hoc analyses so they can be performed automatically on an ongoing basis?</td>
+              </tr>
+              <tr>
+                <td>Access</td>
+                <td>How can I make data science outputs live and interactive?</td>
+              </tr>
+              <tr>
+                <td>Integration</td>
+                <td>How can I view 360 profile info to support customer and territory planning?</td>
+              </tr>
+              <tr>
+                <td>Exploration</td>
+                <td>What can ML/AI techniques tell me about my data without pre-defined questions?</td>
+              </tr>
+
+              <!-- Data curation -->
+              <tr>
+                <td class="topic" rowspan="4">
+                  <img class="topic-img" referrerpolicy="no-referrer"
+                       src="https://drive.google.com/thumbnail?id=1V6WhpHZ9pC60u8Iqgomb9sJhX6zBmkPn&sz=w600"
+                       alt="Data Curation panel">
+                  <h3>Data curation</h3>
+                </td>
+                <td>Live access / integrated public data</td>
+                <td>How can we leverage public websites and integrate data from those sources on an ongoing basis? What news feeds can we track to keep on top of evolving information?</td>
+              </tr>
+              <tr>
+                <td>Data wrangling</td>
+                <td>How can we make better use of text and other unstructured data? (i.e. Excel files with multiple tabs, Word/PDF docs etc.)?</td>
+              </tr>
+              <tr>
+                <td>Local and global data access</td>
+                <td>What secondary data is available to help with SIT, including global and public sources?</td>
+              </tr>
+              <tr>
+                <td>Data onboarding and storage</td>
+                <td>How can disparate data sources be automatically integrated with other data?</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DATA (kept as selectable table) ================= -->
+    <section class="section" aria-labelledby="data-title">
+      <div class="section-header">
+        <h2 id="data-title" class="section-title">A&amp;I Advanced Analytics — Data</h2>
+        <div class="section-meta">Source: A&amp;I Advanced Analytics — Data</div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll" role="region" aria-label="Data table" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Vendor/Source</th>
+                <th scope="col">Datasets</th>
+                <th scope="col">Sample business questions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IQVIA</td>
+                <td>TSA, CDH, Pharmastat, RxDynamics, Xponent + ad hoc data / reports (Canada Drugstore and Therapeutic Index (CDTI), Pharmafocus, Compuscript, many other data sources and reports available)</td>
+                <td>TSA (Territory Sales Analysis), CDH (Canada Drugstore &amp; Hospital), Pharmastat, RxDynamics, Xponent + ad hoc data / reports (CDTI, Pharmafocus, Compuscript, others)</td>
+                <td>TSA — What are the top accounts? What accounts are driving growth? What accounts are over-/under-performing? CDH — What is the market opportunity and our market share? Pharmastat / RxDynamics — What is the source of business (new vs. repeat vs switch)? What products are patients being switched to? What is patient adherence? Xponent — Who are the top prescribers within the market and by product?</td>
+              </tr>
+              <tr>
+                <td>Environics</td>
+                <td>Census, Canada Community Health Survey with data estimated at a postal code level. Social values applies pre-built segmentation model nationally by postal code. Many other data sources available for purchase.</td>
+                <td>Census, Canada Community Health Survey with data estimated at a postal code level. Social values applies pre-built segmentation model nationally by postal code.</td>
+                <td>What is the profile of our patients across Canada? What is their attitude towards taking control of their health? Where do they go for health information? What is the preferred language and channel for communications?</td>
+              </tr>
+              <tr>
+                <td>PubMed</td>
+                <td>Research publications</td>
+                <td>Research publications</td>
+                <td>Who are the top publishing TAEs across Canada? What are topics of interest individual TAEs are publishing? Who is collaborating most often together?</td>
+              </tr>
+              <tr>
+                <td>External</td>
+                <td>Informa, CTMS</td>
+                <td>Clinical trials activity across industry and academia. Clinical trial management system (CTMS) for Roche-specific trial details.</td>
+                <td>Informa — What are the industry-sponsored trials occurring by province and account? Who are the PIs involved in the trials? CTMS — How many patients have been recruited to a Roche trial so far this year?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>TA Scan</td>
+                <td>TAE rankings and profiles by therapeutic area</td>
+                <td>Who are the most influential TAEs within a therapeutic area?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>CanPath</td>
+                <td>Genomic, clinical, behavioural and environmental data on 330,000 Canadians</td>
+                <td>What are common patient characteristics and situations that arise within the patient journey?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Ipsos</td>
+                <td>Physician-based records from syndicated studies housed on the Global Apollo platform.</td>
+                <td>What is the market size across segments? What is the average duration of therapy, dosing schedules? Why are doctors switching?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Brandwatch</td>
+                <td>Social media listening</td>
+                <td>Who are the top KOIs? What discussions are occurring online?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Decision Resources</td>
+                <td>Disease, company and drug insights</td>
+                <td>What reports are available to better understand the epidemiology and market conditions in Canada?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Other</td>
+                <td>CIHI, Statistics Canada, Google, Medifind, news articles, LifeLabs, OHIP billing, SEER (US), LinkedIn, Reddit, etc.</td>
+                <td>What other data is available to help with the request?</td>
+              </tr>
+              <tr>
+                <td>Internal</td>
+                <td>EpiCX</td>
+                <td>CRM data, customers lists, surveys, email engagement, etc.</td>
+                <td>What is the level of customer engagement by channel along with insights?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Event Management System</td>
+                <td>Events and investments by product</td>
+                <td>What is the number and spend on events? Who are the attendees?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Master Data</td>
+                <td>Master customer data including IQVIA OneKey</td>
+                <td>How many affiliated specialists are there by key hospital or clinic?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Patient Support Program</td>
+                <td>Patient status &amp; drug treatment history, reimbursement timelines, etc.</td>
+                <td>What is the trend in new patient enrollments? How many patients have reimbursement delays? What are the reasons?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>SAP</td>
+                <td>Financial transactions including product orders, expenses by cost centre/element, etc.</td>
+                <td>What is the inventory surplus/deficit impacting revenue? What was the source of a large return? Where and how is Roche investing?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>GetFeedback / Qualtrics</td>
+                <td>Customer surveys</td>
+                <td>What is the level of partnership? What are our customer's engagement preferences?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Websites</td>
+                <td>HCP portal, Science Hub, etc. registrations/activity</td>
+                <td>What is the level of engagement with web utilization? What areas are receiving the most traffic?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Hootsuite / Sprinklr</td>
+                <td>Social media management tool used for planning and scheduling social posts, audience engagement, monitoring, and performance reporting.</td>
+                <td>What is the level of engagement with online ads?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Field profiling</td>
+                <td>Surveys (i.e. OCE-P), gSheets</td>
+                <td>What is the estimated patient volume by HCP practice? What gaps/barriers exist? What are details required for segmentation?</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Other</td>
+                <td>HCP portal registrations / activity, NOC &amp; funding timelines, Canada Blood Services, etc.</td>
+                <td>What other data is available to help with the request?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Tip: Use “Print version” for PDF. Images and tables are optimized for paper.</span>
+    </footer>
+  </div>
+</body>
+</html>
