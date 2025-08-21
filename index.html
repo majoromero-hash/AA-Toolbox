@@ -56,6 +56,7 @@
       background:var(--card); border:1px solid var(--grey-3);
       padding:10px 16px; border-radius:var(--radius-lg);
       font-weight:600; cursor:pointer; color:var(--roche-blue-dark);
+      text-decoration:none;
     }
     .print-btn:hover{background:var(--roche-blue-xlight)}
 
@@ -127,7 +128,12 @@
       <p>This is an overview of tools and method used by the advanced analytics team.
          For more information or to initiate a project please reach out to
          <a href="mailto:codman@roche.com">codman@roche.com</a> or any member of the team.</p>
-      <button class="print-btn" onclick="window.print()">🖨 Print version</button>
+      <!-- Button now downloads the PDF; full HTML remains on the page -->
+      <a class="print-btn"
+         href="https://drive.google.com/uc?export=download&id=1b_abcpSTE51CC6pjzneRg0HdY64dotwX"
+         download>
+        📄 Download PDF
+      </a>
     </header>
 
     <!-- ================= METHODS (text table with small PNGs in left column) ================= -->
@@ -324,122 +330,108 @@
               </tr>
             </thead>
             <tbody>
+              <!-- ===== EXTERNAL (10 rows) ===== -->
               <tr>
+                <td rowspan="10">External</td>
                 <td>IQVIA</td>
-                <td>TSA, CDH, Pharmastat, RxDynamics, Xponent + ad hoc data / reports (Canada Drugstore and Therapeutic Index (CDTI), Pharmafocus, Compuscript, many other data sources and reports available)</td>
                 <td>TSA (Territory Sales Analysis), CDH (Canada Drugstore &amp; Hospital), Pharmastat, RxDynamics, Xponent + ad hoc data / reports (CDTI, Pharmafocus, Compuscript, others)</td>
                 <td>TSA — What are the top accounts? What accounts are driving growth? What accounts are over-/under-performing? CDH — What is the market opportunity and our market share? Pharmastat / RxDynamics — What is the source of business (new vs. repeat vs switch)? What products are patients being switched to? What is patient adherence? Xponent — Who are the top prescribers within the market and by product?</td>
               </tr>
               <tr>
                 <td>Environics</td>
-                <td>Census, Canada Community Health Survey with data estimated at a postal code level. Social values applies pre-built segmentation model nationally by postal code. Many other data sources available for purchase.</td>
                 <td>Census, Canada Community Health Survey with data estimated at a postal code level. Social values applies pre-built segmentation model nationally by postal code.</td>
                 <td>What is the profile of our patients across Canada? What is their attitude towards taking control of their health? Where do they go for health information? What is the preferred language and channel for communications?</td>
               </tr>
+              <!-- ✅ Fixed PubMed alignment -->
               <tr>
                 <td>PubMed</td>
-                <td>Research publications</td>
                 <td>Research publications</td>
                 <td>Who are the top publishing TAEs across Canada? What are topics of interest individual TAEs are publishing? Who is collaborating most often together?</td>
               </tr>
               <tr>
-                <td>External</td>
                 <td>Informa, CTMS</td>
                 <td>Clinical trials activity across industry and academia. Clinical trial management system (CTMS) for Roche-specific trial details.</td>
                 <td>Informa — What are the industry-sponsored trials occurring by province and account? Who are the PIs involved in the trials? CTMS — How many patients have been recruited to a Roche trial so far this year?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>TA Scan</td>
                 <td>TAE rankings and profiles by therapeutic area</td>
                 <td>Who are the most influential TAEs within a therapeutic area?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>CanPath</td>
                 <td>Genomic, clinical, behavioural and environmental data on 330,000 Canadians</td>
                 <td>What are common patient characteristics and situations that arise within the patient journey?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Ipsos</td>
                 <td>Physician-based records from syndicated studies housed on the Global Apollo platform.</td>
                 <td>What is the market size across segments? What is the average duration of therapy, dosing schedules? Why are doctors switching?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Brandwatch</td>
                 <td>Social media listening</td>
                 <td>Who are the top KOIs? What discussions are occurring online?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Decision Resources</td>
                 <td>Disease, company and drug insights</td>
                 <td>What reports are available to better understand the epidemiology and market conditions in Canada?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Other</td>
                 <td>CIHI, Statistics Canada, Google, Medifind, news articles, LifeLabs, OHIP billing, SEER (US), LinkedIn, Reddit, etc.</td>
                 <td>What other data is available to help with the request?</td>
               </tr>
+
+              <!-- ===== INTERNAL (10 rows) ===== -->
               <tr>
-                <td>Internal</td>
+                <td rowspan="10">Internal</td>
                 <td>EpiCX</td>
                 <td>CRM data, customers lists, surveys, email engagement, etc.</td>
                 <td>What is the level of customer engagement by channel along with insights?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Event Management System</td>
                 <td>Events and investments by product</td>
                 <td>What is the number and spend on events? Who are the attendees?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Master Data</td>
                 <td>Master customer data including IQVIA OneKey</td>
                 <td>How many affiliated specialists are there by key hospital or clinic?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Patient Support Program</td>
                 <td>Patient status &amp; drug treatment history, reimbursement timelines, etc.</td>
                 <td>What is the trend in new patient enrollments? How many patients have reimbursement delays? What are the reasons?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>SAP</td>
                 <td>Financial transactions including product orders, expenses by cost centre/element, etc.</td>
                 <td>What is the inventory surplus/deficit impacting revenue? What was the source of a large return? Where and how is Roche investing?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>GetFeedback / Qualtrics</td>
                 <td>Customer surveys</td>
                 <td>What is the level of partnership? What are our customer's engagement preferences?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Websites</td>
                 <td>HCP portal, Science Hub, etc. registrations/activity</td>
                 <td>What is the level of engagement with web utilization? What areas are receiving the most traffic?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Hootsuite / Sprinklr</td>
                 <td>Social media management tool used for planning and scheduling social posts, audience engagement, monitoring, and performance reporting.</td>
                 <td>What is the level of engagement with online ads?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Field profiling</td>
                 <td>Surveys (i.e. OCE-P), gSheets</td>
                 <td>What is the estimated patient volume by HCP practice? What gaps/barriers exist? What are details required for segmentation?</td>
               </tr>
               <tr>
-                <td></td>
                 <td>Other</td>
                 <td>HCP portal registrations / activity, NOC &amp; funding timelines, Canada Blood Services, etc.</td>
                 <td>What other data is available to help with the request?</td>
@@ -451,7 +443,7 @@
     </section>
 
     <footer>
-      <span>Tip: Use “Print version” for PDF. Images and tables are optimized for paper.</span>
+      <span>Tip: Use “Download PDF” above to access the full version.</span>
     </footer>
   </div>
 </body>
